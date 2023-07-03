@@ -1,0 +1,30 @@
+.column {
+  width: 280px;
+  /* height: auto; */
+  height: 80vh;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.column_heading {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.column_heading div {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: #49c4e5;
+}
+.column_heading h4 {
+  color: var(--color-grey__light);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+/* background: #8471F2; */
+/* background: #67E2AE; */

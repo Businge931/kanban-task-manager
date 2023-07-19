@@ -9,53 +9,71 @@ import togleSidebar from "../../assets/eye-slash.1.svg";
 import eye from "../../assets/icon-show-sidebar.svg";
 
 import { UseModalContext } from "../../context/ModalContext";
+import { useThemeContext } from "../../context/ThemeContext";
+import UseTasksContext from "../../context/TasksContext";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
+  const [active, setActive] = useState(0);
   const { dispatch } = UseModalContext();
+  const { theme, setTheme } = useThemeContext();
+  const { boards, setCurrentBoard } = UseTasksContext();
 
-  const [togleTheme, setTogleTheme] = useState(false);
-
-  function handleClick() {
-    setTogleTheme((theme) => !theme);
-  }
+  let boardNames = [];
+  boards?.map((board) => boardNames.push(board.name));
 
   return (
     <>
       {showSidebar ? (
-        <aside className={styles.sidebar}>
-          <h3>All boards (3)</h3>
+        <aside
+          className={`${styles.sidebar} ${
+            theme === "dark" ? styles.sidebar_dark : ""
+          }`}
+        >
+          <h3 className={`${theme === dark ? styles.h3_dark : ""}`}>
+            All boards ({boardNames.length})
+          </h3>
 
           <div className={styles.sidebar_links}>
-            <button to="/" className={styles.link}>
-              <img alt="icon" src={sidebarIcon} />
-              Platform Launch
-            </button>
-            <button to="" className={styles.link}>
-              <img alt="icon" src={sidebarIcon} />
-              Marketing Plan
-            </button>
-
-            <button to="" className={styles.link}>
-              <img alt="icon" src={sidebarIcon} />
-              Roadmap
-            </button>
+            {boardNames.map((name, index) => (
+              <p
+                onClick={() => {
+                  setActive(index);
+                  setCurrentBoard(index);
+                }}
+                className={`${styles.link} ${
+                  active === index ? styles.active_link : ""
+                }`}
+                key={name}
+              >
+                <img alt="icon" src={sidebarIcon} />
+                {name}
+              </p>
+            ))}
 
             <button
-              // to=""
-              className={styles.link}
-              onClick={() => dispatch({ type: "addNewBoard", payload: "" })}
+              className={`${styles.link} ${styles.createNew}`}
+              onClick={() => dispatch({ type: "addNewBoard" })}
             >
               <img alt="icon" src={sidebarIcon} />+ Create New Board
             </button>
           </div>
 
-          <div className={styles.sidebar__toggle}>
+          <div
+            className={`${styles.sidebar__toggle} ${
+              theme === "light"
+                ? styles.sidebar__toggle_light
+                : styles.sidebar__toggle_dark
+            }`}
+          >
             <div className={styles.theme_icons}>
               <img alt="light theme icon" src={light} />
-              <div className={styles.togle_button} onClick={handleClick}>
+              <div
+                className={styles.togle_button}
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
                 <div
-                  className={`${togleTheme ? styles.toggle : ""} ${
+                  className={`${theme === "dark" ? styles.toggle : ""} ${
                     styles.togle_button_inner
                   }`}
                 />

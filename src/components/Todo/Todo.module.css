@@ -6,7 +6,7 @@
   box-shadow: 0px 4px 6px 0px rgba(54, 78, 126, 0.1);
   cursor: pointer;
 }
-.todo h4 {
+.title {
   color: var(--color-black);
   font-size: 15px;
   font-weight: 700;
@@ -15,4 +15,11 @@
   color: var(--color-grey__light);
   font-size: 12px;
   font-weight: 700;
+}
+
+.dark {
+  background: var(--color-grey__dark);
+}
+.title_dark {
+  color: var(--color-white);
 }

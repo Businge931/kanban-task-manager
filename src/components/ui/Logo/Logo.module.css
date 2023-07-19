@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 300px;
+  height: 96px;
+}
+.logo_dark {
+  background: var(--color-grey__dark);
+  max-height: 96px;
+}

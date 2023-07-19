@@ -24,6 +24,9 @@
   font-family: var(--font-family);
 }
 
-body {
-  overflow: hidden;
+body::-webkit-scrollbar {
+  display: none;
 }
+/* body {
+  overflow: hidden;
+} */

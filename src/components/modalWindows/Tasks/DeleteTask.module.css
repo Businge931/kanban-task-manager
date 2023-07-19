@@ -1,0 +1,40 @@
+.delete_task {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.delete_task h4 {
+  color: var(--color-error);
+  font-size: 18px;
+  font-weight: 700;
+}
+.delete_task p {
+  color: var(--color-grey__light);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 23px;
+}
+.delete_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.delete_buttons button {
+  padding: 10px 78px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+#delete {
+  background: var(--color-error);
+  color: var(--color-white);
+}
+#delete:hover {
+  background: var(--color-error__light);
+}
+#cancel {
+  background: rgba(99, 95, 199, 0.1);
+  color: var(--color-primary);
+}
+#cancel:hover {
+  background: rgba(99, 95, 199, 0.25);
+}

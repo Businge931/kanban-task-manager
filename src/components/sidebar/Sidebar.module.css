@@ -4,18 +4,26 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  background: transparent;
+}
+.sidebar_dark {
+  background: var(--color-grey__dark);
 }
 .sidebar_links {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 276px;
+  margin-top: 10px;
 }
 .sidebar h3 {
   color: var(--color-grey__light);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2.4px;
+}
+.h3_dark {
+  background: var(--color-grey__light);
 }
 .link {
   width: 100%;
@@ -27,21 +35,21 @@
   font-size: 15px;
   text-decoration: none;
   color: var(--color-grey__light);
+  cursor: pointer;
+  margin-right: 20px;
+
+  background: transparent; /* to be removed  */
 
   display: flex;
   align-items: center;
   gap: 10px;
 }
-/* img {
-  color: var(--color-grey__light);
-} */
-/* .link.active {
+.active_link {
   background: var(--color-primary);
   color: var(--color-white);
-} */
-.link a:global(.active) {
-  background: var(--color-primary);
-  color: var(--color-white);
+}
+.createNew:hover {
+  color: var(--color-primary);
 }
 
 .sidebar__toggle {
@@ -49,7 +57,13 @@
   bottom: 20%;
   width: 251px;
   height: 48px;
+}
+.sidebar__toggle_light {
   background: var(--color-bg__light);
+}
+
+.sidebar__toggle_dark {
+  background-color: var(--color-black__light);
 }
 .theme_icons {
   display: flex;
@@ -72,7 +86,7 @@
   width: 15px;
   border-radius: 50%;
   background: var(--color-white);
-  transition: 0.3s all ease-in;
+  transition: 0.1s all ease-in;
 }
 .toggle {
   transform: translateX(140%);

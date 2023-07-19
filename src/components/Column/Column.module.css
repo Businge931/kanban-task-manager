@@ -1,18 +1,19 @@
 .column {
   width: 280px;
-  /* height: auto; */
-  height: 80vh;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  height: auto;
+  overflow: scroll;
 }
+.column::-webkit-scrollbar {
+  display: none;
+}
+
 .column_heading {
   display: flex;
   gap: 10px;
   align-items: center;
+  margin-bottom: 10px;
 }
+
 .column_heading div {
   width: 15px;
   height: 15px;
@@ -25,6 +26,3 @@
   font-weight: 700;
   letter-spacing: 2.4px;
 }
-
-/* background: #8471F2; */
-/* background: #67E2AE; */

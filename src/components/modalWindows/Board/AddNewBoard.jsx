@@ -3,38 +3,53 @@ import Modal from "../modal/Modal";
 import Input from "../../ui/Input/Input";
 import styles from "./AddNewBoard.module.css";
 import cancel from "../../../assets/cancel.svg";
-import UseTasksContext from "../../../context/TasksContext";
+import { useTasksContext, useModalContext } from "../../../context";
 
-const AddNewBoard = () => {
-  const [boardName, setBoardName] = useState("");
+const AddNewBoard = ({ boardName, setBoardName }) => {
   const [columnName, setColumnName] = useState("");
+  const [newColumns, setNewColumns] = useState([]);
 
-  const { boards, setBoards, tasks, addNewBoard } = UseTasksContext();
+  const { addNewBoard, boards } = useTasksContext();
+  const { dispatch } = useModalContext();
 
   function handleAddNewBoard(e) {
     e.preventDefault();
 
-    if (!boardName || !columnName) return;
+    if (columnName) {
+      handleAddColumn();
+    }
 
-    const newBoard = { boardName, columns: [{ columnName, tasks }] };
+    if (!boardName) return;
+    const newBoard = {
+      id: boards.length + 1,
+      name: boardName,
+      columns: newColumns,
+    };
     addNewBoard(newBoard);
+    setBoardName("");
+    dispatch({ type: "closeModal" });
   }
 
-  function handleAddColumn(e) {
-    e.preventDefault();
-
-    // const col = { columnName, tasks };
-    // setBoards((prev) => [...prev, col]);
+  function handleAddColumn() {
+    if (columnName.trim === "") return;
+    const newColumn = {
+      name: columnName,
+      tasks: [],
+    };
+    setNewColumns((prevCols) => [...prevCols, newColumn]);
+    setColumnName("");
   }
   function handleDeleteColumn(index) {
-    // setBoards((prev) => prev.filter(prev.index === index));
+    const updatedColumns = [...newColumns];
+    updatedColumns.splice(index, 1);
+    setNewColumns(updatedColumns);
   }
 
   return (
     <Modal>
       <div className={styles.board}>
         <h4>Add New Baord</h4>
-        <form>
+        <form onSubmit={handleAddNewBoard}>
           <label htmlFor="boardName">Name</label>
           <Input
             placeholder="e.g. Web Design"
@@ -44,22 +59,18 @@ const AddNewBoard = () => {
           />
 
           <label htmlFor="column">Columns</label>
-          <div className={styles.columns}>
-            <Input
-              placeholder="e.g. Todo"
-              id="column"
-              value={columnName}
-              onChange={(e) => setColumnName(e.target.value)}
-            />
-            <img alt="cancel icon" src={cancel} onClick={handleDeleteColumn} />
-          </div>
-          {/* {columns?.map((col, index) => (
-            <div className={styles.columns}>
+
+          {newColumns?.map((col, index) => (
+            <div className={styles.columns} key={index}>
               <Input
                 placeholder="e.g. Todo"
                 id="column"
-                value={columnName}
-                onChange={(e) => setColumnName(e.target.value)}
+                value={col.name}
+                onChange={(e) => {
+                  const updatedNewCols = [...newColumns];
+                  updatedNewCols[index].name = e.target.value;
+                  setNewColumns(updatedNewCols);
+                }}
               />
               <img
                 alt="cancel icon"
@@ -67,17 +78,17 @@ const AddNewBoard = () => {
                 onClick={() => handleDeleteColumn(index)}
               />
             </div>
-          ))} */}
+          ))}
 
           <div className={styles.buttons}>
-            <button id={styles.add_newColumn} onClick={handleAddColumn}>
+            <button
+              type="button"
+              id={styles.add_newColumn}
+              onClick={handleAddColumn}
+            >
               + Add New Column
             </button>
-            <button
-              // type="submit"
-              onClick={handleAddNewBoard}
-              id={styles.create_newBoard}
-            >
+            <button type="submit" id={styles.create_newBoard}>
               + Create New Board
             </button>
           </div>

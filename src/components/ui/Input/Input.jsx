@@ -1,7 +1,14 @@
 import React from "react";
 import styles from "./Input.module.css";
 
-const Input = ({ placeholder, onChange, value, defaultValue, id }) => {
+const Input = ({
+  placeholder,
+  onChange,
+  value,
+  defaultValue,
+  id,
+  readOnly,
+}) => {
   return (
     <input
       placeholder={placeholder}
@@ -10,6 +17,7 @@ const Input = ({ placeholder, onChange, value, defaultValue, id }) => {
       value={value}
       defaultValue={defaultValue}
       id={id}
+      readOnly={readOnly}
     />
   );
 };

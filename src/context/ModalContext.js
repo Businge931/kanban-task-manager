@@ -23,11 +23,11 @@ function reducer(state, action) {
         openModal: true,
         event: "edit_board",
       };
-    case "addColumn":
-      return {
-        ...state,
-        openModal: true,
-      };
+    // case "addColumn":
+    //   return {
+    //     ...state,
+    //     openModal: true,
+    //   };
     case "addTask":
       return {
         ...state,
@@ -64,7 +64,7 @@ function reducer(state, action) {
   }
 }
 
-export default function ModalContext({ children }) {
+export function ModalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { openModal, event, edit_delete } = state;
@@ -83,7 +83,7 @@ export default function ModalContext({ children }) {
   );
 }
 
-export function UseModalContext() {
+export default function useModalContext() {
   const context = useContext(contextProvider);
   if (!context)
     throw new Error("Component must be wrapped inside modalContext");

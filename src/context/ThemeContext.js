@@ -12,7 +12,7 @@ export function ThemeProvider({ children }) {
   );
 }
 
-export function useThemeContext() {
+export default function useThemeContext() {
   const themeContext = useContext(ThemeContext);
   if (!themeContext) {
     throw new Error(

@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./App.module.css";
 
-import Sidebar from "./components/sidebar/Sidebar";
-import Logo from "./components/ui/Logo/Logo";
-import HeaderNav from "./components/ui/HeaderNav/HeaderNav";
-import ShowTaskDetails from "./components/modalWindows/Tasks/ShowTaskDetails";
-import AddTask from "./components/modalWindows/Tasks/AddTask";
-import EditTask from "./components/modalWindows/Tasks/EditTask";
-import DeleteTask from "./components/modalWindows/Tasks/DeleteTask";
-import AddNewBoard from "./components/modalWindows/Board/AddNewBoard";
-import EditBoard from "./components/modalWindows/Board/EditBoard";
+import {
+  Sidebar,
+  HeaderNav,
+  Logo,
+  ShowTaskDetails,
+  AddTask,
+  EditTask,
+  DeleteTask,
+  AddNewBoard,
+  EditBoard,
+  Column,
+  Todo,
+} from "./components";
 
-import { UseModalContext } from "./context/ModalContext";
-import Column from "./components/Column/Column";
-import Todo from "./components/Todo/Todo";
-import { useThemeContext } from "./context/ThemeContext";
-import UseTasksContext from "./context/TasksContext";
+import { useModalContext, useThemeContext, useTasksContext } from "./context";
 
 const App = () => {
+  const { boards: allBoards, currentBoard, columns } = useTasksContext();
   const [clickedTask, setClickedTask] = useState(null);
-  const { theme } = useThemeContext();
-  const { openModal, event, dispatch } = UseModalContext();
-  const {
-    boards: allBoards,
-    currentBoard,
-    columns,
-    setColumns,
-  } = UseTasksContext();
+  // const [boardName, setBoardName] = useState(
+  //   allBoards[currentBoard]?.name ?? ""
+  // );
 
+  const { theme } = useThemeContext();
+  const { openModal, event, dispatch } = useModalContext();
   const cols = allBoards && allBoards[currentBoard]?.columns;
 
-  useEffect(() => {
-    function fetchBoards() {
-      setColumns(cols);
-    }
-    fetchBoards();
-  }, [dispatch, allBoards, currentBoard, cols, setColumns]);
+  // console.log(allBoards[currentBoard]?.name);
 
   function showTaskDetails(id) {
     setClickedTask(id);
@@ -48,10 +41,10 @@ const App = () => {
 
   return (
     <>
-      <div className={styles.layout}>
+      <main className={styles.layout}>
         <header>
           <Logo />
-          <HeaderNav currentBoard={currentBoard} />
+          <HeaderNav />
         </header>
         <div className={styles.layout_content}>
           <Sidebar />
@@ -60,7 +53,7 @@ const App = () => {
           >
             <div className={styles.columns}>
               {columns?.map((col) => {
-                if (col.tasks.length === 0) {
+                if (col.tasks?.length === 0) {
                   return null;
                 } else {
                   return (
@@ -87,10 +80,9 @@ const App = () => {
                   );
                 }
               })}
-
               {columns?.length > 0 && (
                 <div className={styles.column}>
-                  <p onClick={() => dispatch({ type: "addNewColumn" })}>
+                  <p onClick={() => dispatch({ type: "editBoard" })}>
                     + New Column
                   </p>
                 </div>
@@ -111,7 +103,7 @@ const App = () => {
             )}
           </main>
         </div>
-      </div>
+      </main>
 
       {openModal && event === "add_task" && <AddTask cols={cols} />}
       {openModal && event === "view_task" && (
@@ -119,7 +111,11 @@ const App = () => {
       )}
       {openModal && event === "edit_task" && <EditTask />}
       {openModal && event === "delete_task" && <DeleteTask />}
-      {openModal && event === "add_new_board" && <AddNewBoard />}
+      {openModal && event === "add_new_board" && (
+        <AddNewBoard
+        // boardName={boardName} setBoardName={setBoardName}
+        />
+      )}
       {openModal && event === "edit_board" && <EditBoard />}
     </>
   );

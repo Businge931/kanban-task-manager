@@ -8,16 +8,18 @@ import dark from "../../assets/icon-dark-theme.svg";
 import togleSidebar from "../../assets/eye-slash.1.svg";
 import eye from "../../assets/icon-show-sidebar.svg";
 
-import { UseModalContext } from "../../context/ModalContext";
-import { useThemeContext } from "../../context/ThemeContext";
-import UseTasksContext from "../../context/TasksContext";
+import {
+  useModalContext,
+  useThemeContext,
+  useTasksContext,
+} from "../../context";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [active, setActive] = useState(0);
-  const { dispatch } = UseModalContext();
+  const { dispatch } = useModalContext();
   const { theme, setTheme } = useThemeContext();
-  const { boards, setCurrentBoard } = UseTasksContext();
+  const { boards, setCurrentBoard } = useTasksContext();
 
   let boardNames = [];
   boards?.map((board) => boardNames.push(board.name));

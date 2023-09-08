@@ -4,32 +4,38 @@ import Modal from "../modal/Modal";
 
 import cancel from "../../../assets/cancel.svg";
 import Input from "../../ui/Input/Input";
-import UseTasksContext from "../../../context/TasksContext";
+import { useTasksContext } from "../../../context";
 
 const AddTask = ({ heading, cols }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState(cols[0].name);
 
-  const { subTasks, setSubTasks } = UseTasksContext();
+  const { subTasks, setSubTasks, addNewTask } = useTasksContext();
 
   function AddNewTask(e) {
     e.preventDefault();
     const newTask = {
       title,
       description,
-      status: status[0],
+      status: status,
       subTasks,
     };
 
-    console.log(newTask);
+    // const column = cols.find((col) => col.name === status);
+    // column.tasks?.push(newTask);
+    // console.log(column);
+
+    addNewTask(newTask);
+
+    // console.log(newTask);
   }
 
   function addSubtask(e) {
     e.preventDefault();
-    setSubTasks((prev) => [
-      ...prev,
-      { id: prev.length + 1, title: "", isComplete: false },
+    setSubTasks((prevTasks) => [
+      ...prevTasks,
+      { id: prevTasks.length + 1, title: "", isComplete: false },
     ]);
   }
 
@@ -53,7 +59,7 @@ const AddTask = ({ heading, cols }) => {
             placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
           />
           <label>Subtasks</label>
-          {subTasks.map((subtask, index) => (
+          {subTasks?.map((subtask, index) => (
             <div className={styles.subtask} key={subtask.id}>
               <Input
                 placeholder="e.g. Drink coffee & smile"

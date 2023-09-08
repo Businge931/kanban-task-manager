@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./HeaderNav.module.css";
 import addTaskIcon from "../../../assets/header-dots-icon.svg";
-import { UseModalContext } from "../../../context/ModalContext";
-import { useThemeContext } from "../../../context/ThemeContext";
-import UseTasksContext from "../../../context/TasksContext";
 
-const HeaderNav = ({ currentBoard }) => {
-  const { dispatch } = UseModalContext();
+import {
+  useModalContext,
+  useThemeContext,
+  useTasksContext,
+} from "../../../context";
+
+const HeaderNav = () => {
+  const { dispatch } = useModalContext();
   const { theme } = useThemeContext();
-  const { boards: allBoards } = UseTasksContext();
+  const { boards: allBoards, currentBoard } = useTasksContext();
 
   const heading = allBoards && allBoards[currentBoard]?.name;
 

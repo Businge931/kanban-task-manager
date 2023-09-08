@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./Todo.module.css";
-// import { UseModalContext } from "../../context/ModalContext";
-import { useThemeContext } from "../../context/ThemeContext";
+import { useThemeContext } from "../../context";
 
 const Todo = ({ title, completedSubTask, subtasks, onClick }) => {
-  // const { dispatch } = UseModalContext();
   const { theme } = useThemeContext();
 
   return (

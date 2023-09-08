@@ -3,14 +3,16 @@ import Modal from "../modal/Modal";
 import styles from "./ShowTaskDetails.module.css";
 import taskIcon from "../../../assets/header-dots-icon.svg";
 
-import { UseModalContext } from "../../../context/ModalContext";
-import { useThemeContext } from "../../../context/ThemeContext";
-import UseTasksContext from "../../../context/TasksContext";
+import {
+  useModalContext,
+  useThemeContext,
+  useTasksContext,
+} from "../../../context";
 
 function ShowTaskDetails({ clickedTask }) {
-  const { dispatch, edit_delete } = UseModalContext();
+  const { dispatch, edit_delete } = useModalContext();
   const { theme } = useThemeContext();
-  const { boards: allBoards, currentBoard } = UseTasksContext();
+  const { boards: allBoards, currentBoard } = useTasksContext();
 
   const taskDetails =
     allBoards &&

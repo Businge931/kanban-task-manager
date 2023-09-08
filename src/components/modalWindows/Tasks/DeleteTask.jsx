@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "../modal/Modal";
 import styles from "./DeleteTask.module.css";
-import { UseModalContext } from "../../../context/ModalContext";
+import { useModalContext } from "../../../context";
 
 const DeleteTask = () => {
-  const { dispatch } = UseModalContext();
+  const { dispatch } = useModalContext();
   return (
     <Modal>
       <div className={styles.delete_task}>

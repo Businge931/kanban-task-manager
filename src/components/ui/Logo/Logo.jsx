@@ -3,7 +3,7 @@ import styles from "./Logo.module.css";
 
 import logoLight from "../../../assets/logo-dark.svg";
 import logoDark from "../../../assets/logo-light.svg";
-import { useThemeContext } from "../../../context/ThemeContext";
+import { useThemeContext } from "../../../context";
 
 const Logo = () => {
   const { theme } = useThemeContext();

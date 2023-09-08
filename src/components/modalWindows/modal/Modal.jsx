@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./Modal.module.css";
-import { UseModalContext } from "../../../context/ModalContext";
-import { useThemeContext } from "../../../context/ThemeContext";
+import { useModalContext, useThemeContext } from "../../../context";
 
 const Modal = ({ children }) => {
   const modalRef = useRef();
-  const { dispatch } = UseModalContext();
+  const { dispatch } = useModalContext();
   const { theme } = useThemeContext();
 
   useEffect(() => {

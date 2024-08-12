@@ -59,8 +59,9 @@ export function TasksProvider({ children }) {
       });
 
       if (!res.ok) throw new Error("There was an error creating a new column");
-      return boards[currentBoard]?.columns.push(newColumn);
+      // return boards[currentBoard]?.columns.push(newColumn);
     } catch (error) {
+      console.log(error);
       setError(error);
     }
   };
@@ -84,6 +85,8 @@ export function TasksProvider({ children }) {
     setColumns(boards[currentBoard]?.columns);
     setBoardName(boards[currentBoard]?.name);
   }, [currentBoard, boards]);
+
+  // console.log(boards[currentBoard]);
 
   return (
     <TasksContext.Provider

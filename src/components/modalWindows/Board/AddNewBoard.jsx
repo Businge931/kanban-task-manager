@@ -5,7 +5,8 @@ import styles from "./AddNewBoard.module.css";
 import cancel from "../../../assets/cancel.svg";
 import { useTasksContext, useModalContext } from "../../../context";
 
-const AddNewBoard = ({ boardName, setBoardName }) => {
+const AddNewBoard = () => {
+  const [boardName, setBoardName] = useState("");
   const [columnName, setColumnName] = useState("");
   const [newColumns, setNewColumns] = useState([]);
 
@@ -19,19 +20,23 @@ const AddNewBoard = ({ boardName, setBoardName }) => {
       handleAddColumn();
     }
 
-    if (!boardName) return;
-    const newBoard = {
-      id: boards.length + 1,
-      name: boardName,
-      columns: newColumns,
-    };
-    addNewBoard(newBoard);
+    // if (boardName.trim === "") return;
+    if (boardName) {
+      const newBoard = {
+        id: boards.length + 1,
+        name: boardName,
+        columns: newColumns,
+      };
+      addNewBoard(newBoard);
+    }
     setBoardName("");
     dispatch({ type: "closeModal" });
   }
 
   function handleAddColumn() {
-    if (columnName.trim === "") return;
+    if (columnName.trim === "") {
+      return;
+    }
     const newColumn = {
       name: columnName,
       tasks: [],

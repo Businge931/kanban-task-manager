@@ -18,14 +18,12 @@ import {
 import { useModalContext, useThemeContext, useTasksContext } from "./context";
 
 const App = () => {
-  const { boards: allBoards, currentBoard, columns } = useTasksContext();
   const [clickedTask, setClickedTask] = useState(null);
-  // const [boardName, setBoardName] = useState(
-  //   allBoards[currentBoard]?.name ?? ""
-  // );
 
   const { theme } = useThemeContext();
+  const { boards: allBoards, currentBoard, columns } = useTasksContext();
   const { openModal, event, dispatch } = useModalContext();
+
   const cols = allBoards && allBoards[currentBoard]?.columns;
 
   // console.log(allBoards[currentBoard]?.name);
@@ -111,11 +109,7 @@ const App = () => {
       )}
       {openModal && event === "edit_task" && <EditTask />}
       {openModal && event === "delete_task" && <DeleteTask />}
-      {openModal && event === "add_new_board" && (
-        <AddNewBoard
-        // boardName={boardName} setBoardName={setBoardName}
-        />
-      )}
+      {openModal && event === "add_new_board" && <AddNewBoard />}
       {openModal && event === "edit_board" && <EditBoard />}
     </>
   );

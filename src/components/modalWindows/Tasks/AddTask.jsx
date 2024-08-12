@@ -4,7 +4,7 @@ import Modal from "../modal/Modal";
 
 import cancel from "../../../assets/cancel.svg";
 import Input from "../../ui/Input/Input";
-import { useTasksContext } from "../../../context";
+import { useModalContext, useTasksContext } from "../../../context";
 
 const AddTask = ({ heading, cols }) => {
   const [title, setTitle] = useState("");
@@ -12,6 +12,7 @@ const AddTask = ({ heading, cols }) => {
   const [status, setStatus] = useState(cols[0].name);
 
   const { subTasks, setSubTasks, addNewTask } = useTasksContext();
+  const { dispatch } = useModalContext();
 
   function AddNewTask(e) {
     e.preventDefault();
@@ -22,17 +23,13 @@ const AddTask = ({ heading, cols }) => {
       subTasks,
     };
 
-    // const column = cols.find((col) => col.name === status);
-    // column.tasks?.push(newTask);
-    // console.log(column);
-
     addNewTask(newTask);
+    dispatch({ type: "closeModal" });
 
     // console.log(newTask);
   }
 
-  function addSubtask(e) {
-    e.preventDefault();
+  function addSubtask() {
     setSubTasks((prevTasks) => [
       ...prevTasks,
       { id: prevTasks.length + 1, title: "", isComplete: false },
@@ -43,7 +40,7 @@ const AddTask = ({ heading, cols }) => {
     <Modal>
       <div className={styles.form}>
         <h3>{heading}</h3>
-        <form>
+        <form onSubmit={AddNewTask}>
           <label htmlFor="title">Title</label>
           <Input
             id="title"
@@ -82,7 +79,7 @@ const AddTask = ({ heading, cols }) => {
             </div>
           ))}
 
-          <button id={styles.add_newTask} onClick={addSubtask}>
+          <button type="button" id={styles.add_newTask} onClick={addSubtask}>
             + Add New Subtask
           </button>
           <label htmlFor="status">Status</label>
@@ -97,7 +94,7 @@ const AddTask = ({ heading, cols }) => {
               </option>
             ))}
           </select>
-          <button type="submit" onClick={AddNewTask} id={styles.create_newTask}>
+          <button type="submit" id={styles.create_newTask}>
             Save Changes
           </button>
         </form>

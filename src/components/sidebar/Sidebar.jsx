@@ -17,6 +17,7 @@ import {
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [active, setActive] = useState(0);
+
   const { dispatch } = useModalContext();
   const { theme, setTheme } = useThemeContext();
   const { boards, setCurrentBoard } = useTasksContext();

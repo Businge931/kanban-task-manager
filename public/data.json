@@ -431,18 +431,58 @@
     },
     {
       "id": 4,
-      "name": "Code",
+      "name": "Travel",
       "columns": [
         {
-          "name": "Test",
+          "name": "Cars",
+          "tasks": []
+        },
+        {
+          "name": "Food",
+          "tasks": []
+        },
+        {
+          "name": "Money",
           "tasks": []
         }
       ]
     },
     {
-      "name": "",
-      "tasks": [],
+      "title": "Refill the gas",
+      "description": "Go to petrol station and buy fuel",
+      "status": "Money",
+      "subTasks": [
+        {
+          "id": 1,
+          "title": "pay",
+          "isComplete": false
+        },
+        {
+          "id": 2,
+          "title": "cash",
+          "isComplete": false
+        },
+        {
+          "id": 3,
+          "title": "credit card",
+          "isComplete": false
+        }
+      ],
       "id": 5
+    },
+    {
+      "id": 6,
+      "name": "UI",
+      "columns": [
+        {
+          "name": "start project",
+          "tasks": []
+        },
+        {
+          "name": "Pass",
+          "tasks": []
+        }
+      ]
     }
   ]
 }

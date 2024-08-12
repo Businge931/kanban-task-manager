@@ -20,12 +20,12 @@ const HeaderNav = () => {
       <h1>{heading}</h1>
       <div className={styles.nav_buttons}>
         <button
-          onClick={() =>
+          onClick={() => {
             dispatch({
               type: "addTask",
               payload: "add_task",
-            })
-          }
+            });
+          }}
         >
           +Add New Task
         </button>
